@@ -1,0 +1,9 @@
+type Query {
+  authenticateUser(username: String, password: String): UserAuthenticated
+}
+
+type UserAuthenticated {
+  _id: ID
+  isAuthenticated: String
+  userType: String
+}
