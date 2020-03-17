@@ -3,7 +3,7 @@ const {
   GraphQLString,
 } = require('graphql');
 const { userAuthenticatedType } = require('../nodeTypes');
-const MongoDBRepository = require('../../repository/mongoDbRepository');
+const UsersService = require('../../services/usersService');
 
 
 const AuthenticateUserQuery = {
@@ -13,8 +13,8 @@ const AuthenticateUserQuery = {
     password: { type: GraphQLString },
   },
   resolve: async (_, { username, password }) => {
-    const usersRepository = new MongoDBRepository('users');
-    const res = await usersRepository.signIn({ username, password });
+    const userService = new UsersService();
+    const res = await userService.signIn({ username, password });
 
 
     if (res) {

@@ -12,7 +12,7 @@ const setupDB = (callback) => {
       if (err) {
         return callback(err);
       }
-      mongoDB = client.db('users');
+      mongoDB = client.db('babe');
       return callback('DB OK');
     },
   );

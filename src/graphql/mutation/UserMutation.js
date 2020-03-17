@@ -1,55 +1,35 @@
 /* eslint-disable no-unused-vars */
-const { userType } = require('../nodeTypes');
 const {
   GraphQLString,
-  GraphQLBoolean,
-  GraphQLInt,
-  GraphQLID
+  GraphQLNonNull,
 } = require('graphql');
-const UserService = require('../../services/userService');
+const { userRegistrationType } = require('../nodeTypes');
+const UsersService = require('../../services/usersService');
+
 
 const UserCreate = {
-  type: userType,
+  type: userRegistrationType,
   args: {
-    name: { type: GraphQLString }
+    username: { type: new GraphQLNonNull(GraphQLString) },
+    password: { type: new GraphQLNonNull(GraphQLString) },
+    firstName: { type: new GraphQLNonNull(GraphQLString) },
+    surname: { type: new GraphQLNonNull(GraphQLString) },
+    accountType: { type: new GraphQLNonNull(GraphQLString) },
+    facebookURL: { type: new GraphQLNonNull(GraphQLString) },
+    instagramURL: { type: new GraphQLNonNull(GraphQLString) },
   },
-  resolve: async (_, { name }) => {
-    const userService = new UserService();
-    const newUser = await userService.createUser({ name });
+  resolve: async (_, values) => {
+    const usersService = new UsersService();
+    const res = await usersService.register(values);
 
-    return newUser;
-  }
-};
-
-const UserDelete = {
-  type: GraphQLBoolean,
-  args: {
-    _id: { type: GraphQLID }
-  },
-  resolve: async (_, { _id }) => {
-    const userService = new UserService();
-    const res = await userService.deleteUser(_id);
-
-    if (res.ok) {
-      return true;
-    } else {
-      return false;
+    if (res.error) {
+      return new Error(res.error);
     }
-  }
-};
 
-const UserUpdate = {
-  type: userType,
-  args: {
-    _id: { type: GraphQLID },
-    name: { type: GraphQLString }
+
+    return res.ops[0];
   },
-  resolve: async (_, { _id, name }) => {
-    const userService = new UserService();
-    const updatedUser = await userService.updateUser(_id, { name });
-
-    return updatedUser;
-  }
 };
 
-module.exports = { UserCreate, UserUpdate, UserDelete };
+
+module.exports = { UserCreate };

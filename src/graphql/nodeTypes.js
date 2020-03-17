@@ -5,8 +5,24 @@ const userAuthenticatedType = new GraphQLObjectType({
   fields: {
     _id: { type: GraphQLID },
     isAuthenticated: { type: GraphQLString },
-    userType: { type: GraphQLString },
+    accountType: { type: GraphQLString },
   },
 });
 
-module.exports = { userAuthenticatedType };
+const userRegistrationType = new GraphQLObjectType({
+  name: 'UserRegistrationType',
+  fields: {
+    _id: { type: GraphQLID },
+    username: { type: GraphQLString },
+    password: { type: GraphQLString },
+    firstName: { type: GraphQLString },
+    surname: { type: GraphQLString },
+    accountType: { type: GraphQLString },
+    facebookURL: { type: GraphQLString },
+    instagramURL: { type: GraphQLString },
+
+  },
+
+});
+
+module.exports = { userAuthenticatedType, userRegistrationType };
