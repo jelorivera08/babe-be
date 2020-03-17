@@ -25,7 +25,7 @@ class UsersService {
     }
 
 
-    return this.collection.insertOne(values);
+    return this.collection.insertOne({ ...values, status: 'PENDING' });
   }
 }
 
