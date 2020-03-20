@@ -21,7 +21,7 @@ const AuthenticateUserQuery = {
       return {
         _id: res._id,
         isAuthenticated: true,
-        userType: res.userType,
+        accountType: res.accountType,
       };
     }
     return new Error('Invalid Credentials');

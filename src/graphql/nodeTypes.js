@@ -20,9 +20,8 @@ const userRegistrationType = new GraphQLObjectType({
     accountType: { type: GraphQLString },
     facebookURL: { type: GraphQLString },
     instagramURL: { type: GraphQLString },
-
   },
-
 });
+
 
 module.exports = { userAuthenticatedType, userRegistrationType };

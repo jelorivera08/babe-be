@@ -27,6 +27,13 @@ class UsersService {
 
     return this.collection.insertOne({ ...values, status: 'PENDING' });
   }
+
+  async getUsers() {
+    const exisingUsers = await this.collection.find().toArray();
+
+
+    return exisingUsers;
+  }
 }
 
 

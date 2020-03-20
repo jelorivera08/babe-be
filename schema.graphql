@@ -4,6 +4,7 @@ type Mutation {
 
 type Query {
   authenticateUser(username: String, password: String): UserAuthenticated
+  users: [UserRegistrationType]
 }
 
 type UserAuthenticated {
