@@ -2,12 +2,12 @@
 const {
   GraphQLList,
 } = require('graphql');
-const { userRegistrationType } = require('../nodeTypes');
+const { userType } = require('../nodeTypes');
 const UsersService = require('../../services/usersService');
 
 
 const UsersQuery = {
-  type: GraphQLList(userRegistrationType),
+  type: GraphQLList(userType),
   resolve: async () => {
     const userService = new UsersService();
     const res = await userService.getUsers();

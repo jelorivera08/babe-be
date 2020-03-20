@@ -3,7 +3,7 @@ const {
   GraphQLString,
   GraphQLNonNull,
 } = require('graphql');
-const { userRegistrationType } = require('../nodeTypes');
+const { userRegistrationType, userType } = require('../nodeTypes');
 const UsersService = require('../../services/usersService');
 
 
@@ -32,4 +32,27 @@ const UserCreate = {
 };
 
 
-module.exports = { UserCreate };
+const ChangeUserStatus = {
+  type: userType,
+  args: {
+    username: { type: new GraphQLNonNull(GraphQLString) },
+    status: { type: new GraphQLNonNull(GraphQLString) },
+  },
+  resolve: async (_, values) => {
+    const usersService = new UsersService();
+    const res = await usersService.changeUserStatus(values);
+
+
+    if (res.error) {
+      return new Error(res.error);
+    }
+
+    if (res.ok) {
+      return res.value;
+    }
+
+    return null;
+  },
+};
+
+module.exports = { UserCreate, ChangeUserStatus };

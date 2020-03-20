@@ -1,20 +1,21 @@
 type Mutation {
   userCreate(username: String!, password: String!, firstName: String!, surname: String!, accountType: String!, facebookURL: String!, instagramURL: String!): UserRegistrationType
+  changeUserStatus(username: String!, status: String!): userType
 }
 
 type Query {
   authenticateUser(username: String, password: String): UserAuthenticated
-  users: [UserRegistrationType]
+  users: [userType]
 }
 
 type UserAuthenticated {
-  _id: ID
+  id: ID
   isAuthenticated: String
   accountType: String
 }
 
 type UserRegistrationType {
-  _id: ID
+  id: ID
   username: String
   password: String
   firstName: String
@@ -22,4 +23,16 @@ type UserRegistrationType {
   accountType: String
   facebookURL: String
   instagramURL: String
+}
+
+type userType {
+  id: ID
+  username: String
+  password: String
+  firstName: String
+  surname: String
+  accountType: String
+  facebookURL: String
+  instagramURL: String
+  status: String
 }

@@ -6,6 +6,19 @@ class UsersService {
     this.collection = getDB().collection('users');
   }
 
+  async changeUserStatus({ username, status }) {
+    const changeUserStatus = await this.collection.findOneAndUpdate({
+      username,
+    }, {
+      $set: { status },
+    }, {
+      returnOriginal: false,
+    });
+
+
+    return changeUserStatus;
+  }
+
   signIn({ username, password }) {
     return new Promise((resolve, reject) => {
       this.collection.findOne({ username, password }, (err, data) => {

@@ -19,7 +19,7 @@ const AuthenticateUserQuery = {
 
     if (res) {
       return {
-        _id: res._id,
+        id: res._id,
         isAuthenticated: true,
         accountType: res.accountType,
       };

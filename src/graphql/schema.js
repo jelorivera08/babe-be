@@ -2,7 +2,7 @@ const { GraphQLSchema, GraphQLObjectType } = require('graphql');
 const { AuthenticateUserQuery } = require('./query/AuthenticateUserQuery');
 const { UsersQuery } = require('./query/UsersQuery');
 
-const { UserCreate } = require('./mutation/UserMutation');
+const { UserCreate, ChangeUserStatus } = require('./mutation/UserMutation');
 
 
 const QueryType = new GraphQLObjectType({
@@ -17,6 +17,7 @@ const MutationType = new GraphQLObjectType({
   name: 'Mutation',
   fields: () => ({
     userCreate: UserCreate,
+    changeUserStatus: ChangeUserStatus,
   }),
 });
 
