@@ -1,4 +1,6 @@
-const { GraphQLObjectType, GraphQLID, GraphQLString } = require('graphql');
+const {
+  GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLInt,
+} = require('graphql');
 
 const userAuthenticatedType = new GraphQLObjectType({
   name: 'UserAuthenticated',
@@ -23,6 +25,24 @@ const userRegistrationType = new GraphQLObjectType({
   },
 });
 
+const productType = new GraphQLObjectType({
+  name: 'productType',
+  fields: {
+    name: { type: GraphQLString },
+    amount: { type: GraphQLInt },
+    quantity: { type: GraphQLInt },
+  },
+});
+
+const orderType = new GraphQLObjectType({
+  name: 'orderType',
+  fields: {
+    user: { type: GraphQLString },
+    products: { type: GraphQLList(productType) },
+    dateOrdered: { type: GraphQLString },
+  },
+});
+
 const userType = new GraphQLObjectType({
   name: 'userType',
   fields: {
@@ -35,6 +55,7 @@ const userType = new GraphQLObjectType({
     facebookURL: { type: GraphQLString },
     instagramURL: { type: GraphQLString },
     status: { type: GraphQLString },
+    orders: { type: GraphQLList(orderType) },
   },
 });
 

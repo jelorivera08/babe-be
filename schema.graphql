@@ -3,9 +3,22 @@ type Mutation {
   changeUserStatus(username: String!, status: String!): userType
 }
 
+type orderType {
+  user: String
+  products: [productType]
+  dateOrdered: String
+}
+
+type productType {
+  name: String
+  amount: Int
+  quantity: Int
+}
+
 type Query {
   authenticateUser(username: String, password: String): UserAuthenticated
   users: [userType]
+  regionalStockists: [userType]
 }
 
 type UserAuthenticated {
@@ -35,4 +48,5 @@ type userType {
   facebookURL: String
   instagramURL: String
   status: String
+  orders: [orderType]
 }

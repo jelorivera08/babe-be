@@ -1,9 +1,34 @@
 const { getDB } = require('../config/databaseConnection');
+const OrderService = require('./ordersService');
 
 
 class UsersService {
   constructor() {
     this.collection = getDB().collection('users');
+  }
+
+  async getRegionalStockists() {
+    const regionalStockists = await this.collection.find({ accountType: 'Regional Stockist' }).toArray();
+    const orderService = new OrderService();
+    const orders = await orderService.getOrders();
+
+    const stockistWithOrders = [];
+
+    orders.forEach((order) => {
+      const stockistWithOrdersIndex = stockistWithOrders.findIndex((sOrder) => sOrder.username === order.user);
+
+      if (stockistWithOrdersIndex !== -1) {
+        stockistWithOrders[stockistWithOrdersIndex].orders.push(order);
+      } else {
+        stockistWithOrders.push({
+          ...regionalStockists.find((sOrder) => sOrder.username === order.user),
+          orders: [order],
+        });
+      }
+    });
+
+
+    return stockistWithOrders;
   }
 
   async changeUserStatus({ username, status }) {
