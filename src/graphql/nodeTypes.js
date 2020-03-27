@@ -1,5 +1,6 @@
 const {
   GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLInt,
+  GraphQLInputObjectType,
 } = require('graphql');
 
 const userAuthenticatedType = new GraphQLObjectType({
@@ -34,6 +35,15 @@ const productType = new GraphQLObjectType({
   },
 });
 
+const productInputType = new GraphQLInputObjectType({
+  name: 'productInputType',
+  fields: {
+    name: { type: GraphQLString },
+    amount: { type: GraphQLInt },
+    quantity: { type: GraphQLInt },
+  },
+});
+
 const orderType = new GraphQLObjectType({
   name: 'orderType',
   fields: {
@@ -60,4 +70,10 @@ const userType = new GraphQLObjectType({
 });
 
 
-module.exports = { userAuthenticatedType, userRegistrationType, userType };
+module.exports = {
+  userAuthenticatedType,
+  userRegistrationType,
+  userType,
+  productType,
+  productInputType,
+};

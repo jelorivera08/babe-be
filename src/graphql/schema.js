@@ -3,6 +3,8 @@ const { AuthenticateUserQuery } = require('./query/AuthenticateUserQuery');
 const { UsersQuery } = require('./query/UsersQuery');
 const { RegionalStockistsQuery } = require('./query/RegionalStockistsQuery');
 const { UserCreate, ChangeUserStatus } = require('./mutation/UserMutation');
+const { ProductsQuery } = require('./query/ProductsQuery');
+const { AddOrderMutation } = require('./mutation/AddOrderMutation');
 
 
 const QueryType = new GraphQLObjectType({
@@ -11,6 +13,7 @@ const QueryType = new GraphQLObjectType({
     authenticateUser: AuthenticateUserQuery,
     users: UsersQuery,
     regionalStockists: RegionalStockistsQuery,
+    products: ProductsQuery,
   }),
 });
 
@@ -19,6 +22,7 @@ const MutationType = new GraphQLObjectType({
   fields: () => ({
     userCreate: UserCreate,
     changeUserStatus: ChangeUserStatus,
+    addOrder: AddOrderMutation,
   }),
 });
 

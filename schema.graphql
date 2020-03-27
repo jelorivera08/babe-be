@@ -1,12 +1,19 @@
 type Mutation {
   userCreate(username: String!, password: String!, firstName: String!, surname: String!, accountType: String!, facebookURL: String!, instagramURL: String!): UserRegistrationType
   changeUserStatus(username: String!, status: String!): userType
+  addOrder(user: String!, dateOrdered: String!, product: productInputType!): productType
 }
 
 type orderType {
   user: String
   products: [productType]
   dateOrdered: String
+}
+
+input productInputType {
+  name: String
+  amount: Int
+  quantity: Int
 }
 
 type productType {
@@ -19,6 +26,7 @@ type Query {
   authenticateUser(username: String, password: String): UserAuthenticated
   users: [userType]
   regionalStockists: [userType]
+  products: [productType]
 }
 
 type UserAuthenticated {

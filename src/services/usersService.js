@@ -15,7 +15,9 @@ class UsersService {
     const stockistWithOrders = [];
 
     orders.forEach((order) => {
-      const stockistWithOrdersIndex = stockistWithOrders.findIndex((sOrder) => sOrder.username === order.user);
+      const stockistWithOrdersIndex = stockistWithOrders.findIndex(
+        (sOrder) => sOrder.username === order.user,
+      );
 
       if (stockistWithOrdersIndex !== -1) {
         stockistWithOrders[stockistWithOrdersIndex].orders.push(order);
