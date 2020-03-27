@@ -2,6 +2,7 @@ type Mutation {
   userCreate(username: String!, password: String!, firstName: String!, surname: String!, accountType: String!, facebookURL: String!, instagramURL: String!): UserRegistrationType
   changeUserStatus(username: String!, status: String!): userType
   addOrder(user: String!, dateOrdered: String!, product: productInputType!): productType
+  updateOrder(user: String!, dateOrdered: String!, product: productInputType!, productIndex: Int!): productType
 }
 
 type orderType {
