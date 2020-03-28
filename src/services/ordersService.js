@@ -27,7 +27,7 @@ class OrderService {
       {
         $set: {
           products: [
-            ...order.products,
+            ...order.products.filter((v) => v.quantity !== 0),
           ],
         },
       }, {
@@ -45,6 +45,10 @@ class OrderService {
     const order = await this.collection.findOne(
       { user: values.user, dateOrdered: values.dateOrdered },
     );
+
+    if (values.product.quantity < 1) {
+      return new Error('Product quantity should be more than zero');
+    }
 
 
     const updatedOrder = await this.collection.findOneAndUpdate(
