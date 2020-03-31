@@ -66,6 +66,7 @@ const userType = new GraphQLObjectType({
     instagramURL: { type: GraphQLString },
     status: { type: GraphQLString },
     orders: { type: GraphQLList(orderType) },
+    description: { type: GraphQLString },
   },
 });
 
