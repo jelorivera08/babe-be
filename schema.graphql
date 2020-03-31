@@ -29,6 +29,7 @@ type Query {
   users: [userType]
   regionalStockists: [userType]
   products: [productType]
+  activeResellers: [userType]
 }
 
 type UserAuthenticated {

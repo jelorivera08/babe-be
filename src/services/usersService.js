@@ -7,6 +7,10 @@ class UsersService {
     this.collection = getDB().collection('users');
   }
 
+  async activeResellers() {
+    return this.collection.find({ status: 'ACTIVE', accountType: 'Reseller' }).toArray();
+  }
+
   async getRegionalStockists() {
     const regionalStockists = await this.collection.find({ accountType: 'Regional Stockist' }).toArray();
     const orderService = new OrderService();
