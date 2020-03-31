@@ -6,6 +6,7 @@ const { UserCreate, ChangeUserStatus } = require('./mutation/UserMutation');
 const { ProductsQuery } = require('./query/ProductsQuery');
 const { UpdateOrderMutation } = require('./mutation/UpdateOrderMutation');
 const { AddOrderMutation } = require('./mutation/AddOrderMutation');
+const { CreateOrderMutation } = require('./mutation/CreateOrderMutation');
 
 
 const QueryType = new GraphQLObjectType({
@@ -25,6 +26,7 @@ const MutationType = new GraphQLObjectType({
     changeUserStatus: ChangeUserStatus,
     addOrder: AddOrderMutation,
     updateOrder: UpdateOrderMutation,
+    createOrder: CreateOrderMutation,
   }),
 });
 

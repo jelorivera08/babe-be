@@ -6,6 +6,26 @@ class OrderService {
     this.collection = getDB().collection('orders');
   }
 
+  async createOrder(values) {
+    const orderWithSameDate = await this.collection.find(
+      { dateOrdered: values.dateOrdered },
+    ).toArray();
+
+    if (orderWithSameDate.length > 0) {
+      return new Error('Order date already placed.');
+    }
+
+
+    const res = await this.collection.insertOne(values);
+
+    if (res.result.ok === 1) {
+      const allOrders = await this.collection.find({ user: values.user }).toArray();
+
+      return allOrders;
+    }
+    return new Error('unable to add order.');
+  }
+
   async getOrders() {
     return this.collection.find().toArray();
   }

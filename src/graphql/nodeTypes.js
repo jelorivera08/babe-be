@@ -76,4 +76,5 @@ module.exports = {
   userType,
   productType,
   productInputType,
+  orderType,
 };
