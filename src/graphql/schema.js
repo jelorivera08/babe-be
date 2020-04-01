@@ -8,6 +8,7 @@ const { UpdateOrderMutation } = require('./mutation/UpdateOrderMutation');
 const { AddOrderMutation } = require('./mutation/AddOrderMutation');
 const { CreateOrderMutation } = require('./mutation/CreateOrderMutation');
 const { ActiveResellersQuery } = require('./query/ActiveResellersQuery');
+const { CreateProductMutation } = require('./mutation/CreateProductMutation');
 
 const QueryType = new GraphQLObjectType({
   name: 'Query',
@@ -28,6 +29,7 @@ const MutationType = new GraphQLObjectType({
     addOrder: AddOrderMutation,
     updateOrder: UpdateOrderMutation,
     createOrder: CreateOrderMutation,
+    createProduct: CreateProductMutation,
   }),
 });
 
