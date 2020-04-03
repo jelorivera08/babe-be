@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const config = require("./config.js");
 
 const checkToken = (req, res, next) => {
-  if (req.headers.isloggingin === "true") return next();
+  if (req.headers.islogginginorsigningup === "true") return next();
   let token = req.headers["x-access-token"] || req.headers.authorization; // Express headers are auto converted to lowercase
 
   if (token) {
@@ -15,7 +15,8 @@ const checkToken = (req, res, next) => {
       if (err) {
         return res.json({
           success: false,
-          message: "Token is not valid"
+          message: "Token is not valid",
+          invalidToken: true
         });
       }
       req.decoded = decoded;
