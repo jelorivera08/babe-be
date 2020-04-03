@@ -2,12 +2,11 @@
 const {
   GraphQLString,
 } = require('graphql');
-const { userAuthenticatedType } = require('../nodeTypes');
 const UsersService = require('../../services/usersService');
 
 
 const AuthenticateUserQuery = {
-  type: userAuthenticatedType,
+  type: GraphQLString,
   args: {
     username: { type: GraphQLString },
     password: { type: GraphQLString },
@@ -16,13 +15,8 @@ const AuthenticateUserQuery = {
     const userService = new UsersService();
     const res = await userService.signIn({ username, password });
 
-
     if (res) {
-      return {
-        id: res._id,
-        isAuthenticated: true,
-        accountType: res.accountType,
-      };
+      return res;
     }
     return new Error('Invalid Credentials');
   },

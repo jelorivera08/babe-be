@@ -3,14 +3,6 @@ const {
   GraphQLInputObjectType,
 } = require('graphql');
 
-const userAuthenticatedType = new GraphQLObjectType({
-  name: 'UserAuthenticated',
-  fields: {
-    id: { type: GraphQLID },
-    isAuthenticated: { type: GraphQLString },
-    accountType: { type: GraphQLString },
-  },
-});
 
 const userRegistrationType = new GraphQLObjectType({
   name: 'UserRegistrationType',
@@ -72,7 +64,6 @@ const userType = new GraphQLObjectType({
 
 
 module.exports = {
-  userAuthenticatedType,
   userRegistrationType,
   userType,
   productType,

@@ -1,5 +1,7 @@
+const jwt = require('jsonwebtoken');
 const { getDB } = require('../config/databaseConnection');
 const OrderService = require('./ordersService');
+const config = require('../config');
 
 
 class UsersService {
@@ -50,15 +52,16 @@ class UsersService {
     return changeUserStatus;
   }
 
-  signIn({ username, password }) {
-    return new Promise((resolve, reject) => {
-      this.collection.findOne({ username, password }, (err, data) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(data);
-      });
-    });
+  async signIn({ username, password }) {
+    const res = await this.collection.findOne({ username, password });
+
+    if (res !== null) {
+      return jwt.sign({ username, accountType: res.accountType },
+        config.secret,
+        { expiresIn: '24h' });
+    }
+
+    return Error('Invalid Credentials');
   }
 
   async register(values) {

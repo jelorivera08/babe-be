@@ -26,17 +26,11 @@ type productType {
 }
 
 type Query {
-  authenticateUser(username: String, password: String): UserAuthenticated
+  authenticateUser(username: String, password: String): String
   users: [userType]
   regionalStockists: [userType]
   products: [productType]
   activeResellers: [userType]
-}
-
-type UserAuthenticated {
-  id: ID
-  isAuthenticated: String
-  accountType: String
 }
 
 type UserRegistrationType {
