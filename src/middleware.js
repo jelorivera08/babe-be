@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const config = require("./config.js");
 
 const checkToken = (req, res, next) => {
-  if (req.headers.islogginginorsigningup === "true") return next();
+  if (req.headers.noauthneeded === "true") return next();
   let token = req.headers["x-access-token"] || req.headers.authorization; // Express headers are auto converted to lowercase
 
   if (token) {
