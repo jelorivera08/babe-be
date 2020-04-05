@@ -1,20 +1,24 @@
-const jwt = require('jsonwebtoken');
-const { getDB } = require('../config/databaseConnection');
-const OrderService = require('./ordersService');
-const config = require('../config');
-
+const jwt = require("jsonwebtoken");
+const { getDB } = require("../config/databaseConnection");
+const OrderService = require("./ordersService");
+const config = require("../config");
 
 class UsersService {
   constructor() {
-    this.collection = getDB().collection('users');
+    this.collection = getDB().collection("users");
   }
 
   async activeResellers() {
-    return this.collection.find({ status: 'ACTIVE', accountType: 'Reseller' }).toArray();
+    return this.collection
+      .find({ status: "ACTIVE", accountType: "Reseller" })
+      .toArray();
   }
 
-  async getRegionalStockists() {
-    const regionalStockists = await this.collection.find({ accountType: 'Regional Stockist' }).toArray();
+  async getStockists(values) {
+    const regionalStockists = await this.collection
+      .find({ accountType: values.accountType })
+      .toArray();
+
     const orderService = new OrderService();
     const orders = await orderService.getOrders();
 
@@ -22,32 +26,40 @@ class UsersService {
 
     orders.forEach((order) => {
       const stockistWithOrdersIndex = stockistWithOrders.findIndex(
-        (sOrder) => sOrder.username === order.user,
+        (sOrder) => sOrder.username === order.user
       );
 
       if (stockistWithOrdersIndex !== -1) {
         stockistWithOrders[stockistWithOrdersIndex].orders.push(order);
       } else {
-        stockistWithOrders.push({
-          ...regionalStockists.find((sOrder) => sOrder.username === order.user),
-          orders: [order],
-        });
+        const existingOrder = regionalStockists.find(
+          (sOrder) => sOrder.username === order.user
+        );
+
+        if (existingOrder) {
+          stockistWithOrders.push({
+            ...existingOrder,
+            orders: [order],
+          });
+        }
       }
     });
-
 
     return stockistWithOrders;
   }
 
   async changeUserStatus({ username, status }) {
-    const changeUserStatus = await this.collection.findOneAndUpdate({
-      username,
-    }, {
-      $set: { status },
-    }, {
-      returnOriginal: false,
-    });
-
+    const changeUserStatus = await this.collection.findOneAndUpdate(
+      {
+        username,
+      },
+      {
+        $set: { status },
+      },
+      {
+        returnOriginal: false,
+      }
+    );
 
     return changeUserStatus;
   }
@@ -56,32 +68,33 @@ class UsersService {
     const res = await this.collection.findOne({ username, password });
 
     if (res !== null) {
-      return jwt.sign({ username, accountType: res.accountType },
+      return jwt.sign(
+        { username, accountType: res.accountType },
         config.secret,
-        { expiresIn: '24h' });
+        { expiresIn: "24h" }
+      );
     }
 
-    return Error('Invalid Credentials');
+    return Error("Invalid Credentials");
   }
 
   async register(values) {
-    const existingUsername = await this.collection.findOne({ username: values.username });
+    const existingUsername = await this.collection.findOne({
+      username: values.username,
+    });
 
     if (existingUsername && existingUsername.username) {
-      return { error: 'Username already exists.' };
+      return { error: "Username already exists." };
     }
 
-
-    return this.collection.insertOne({ ...values, status: 'PENDING' });
+    return this.collection.insertOne({ ...values, status: "PENDING" });
   }
 
   async getUsers() {
     const exisingUsers = await this.collection.find().toArray();
 
-
     return exisingUsers;
   }
 }
-
 
 module.exports = UsersService;

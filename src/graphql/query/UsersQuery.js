@@ -1,10 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-const {
-  GraphQLList,
-} = require('graphql');
-const { userType } = require('../nodeTypes');
-const UsersService = require('../../services/usersService');
-
+const { GraphQLList } = require("graphql");
+const { userType } = require("../nodeTypes");
+const UsersService = require("../../services/usersService");
 
 const UsersQuery = {
   type: GraphQLList(userType),
@@ -12,12 +9,11 @@ const UsersQuery = {
     const userService = new UsersService();
     const res = await userService.getUsers();
 
-
     if (res) {
       return res;
     }
 
-    return new Error('Error getting all users.');
+    return new Error("Error getting all users.");
   },
 };
 
