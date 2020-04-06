@@ -10,7 +10,7 @@ class OrderService {
       .find({ user: values.username })
       .toArray();
 
-    return yourOrders;
+    return yourOrders.sort((a, b) => (a.dateOrdered < b.dateOrdered ? 1 : -1));
   }
 
   async createOrder(values) {
