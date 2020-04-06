@@ -16,7 +16,9 @@ class UsersService {
 
   async getStockists(values) {
     const regionalStockists = await this.collection
-      .find({ accountType: values.accountType })
+      .find({
+        accountType: values.accountType,
+      })
       .toArray();
 
     const orderService = new OrderService();

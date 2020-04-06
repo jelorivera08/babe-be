@@ -7,6 +7,7 @@ const StockistsQuery = {
   type: GraphQLList(userType),
   args: {
     accountType: { type: GraphQLString },
+    username: { type: GraphQLString },
   },
   resolve: async (_, values) => {
     const userService = new UsersService();
