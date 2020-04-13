@@ -3,7 +3,7 @@ type Mutation {
   changeUserStatus(username: String!, status: String!): userType
   addOrder(user: String!, dateOrdered: String!, product: productInputType!): productType
   updateOrder(user: String!, dateOrdered: String!, product: productInputType!, productIndex: Int!): productType
-  createOrder(user: String!, products: [productInputType]!, dateOrdered: String!): [orderType]
+  createOrder(user: String!, products: [productInputType]!, dateOrdered: String!, notes: String!): [orderType]
   createProduct(name: String!, amount: Int!): [productType]
   updateOrderNote(dateOrdered: String!, note: String!, user: String!): orderType
 }
