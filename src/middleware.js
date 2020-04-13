@@ -16,7 +16,7 @@ const checkToken = (req, res, next) => {
         return res.json({
           success: false,
           message: "Token is not valid",
-          invalidToken: true
+          invalidToken: true,
         });
       }
       req.decoded = decoded;
@@ -25,11 +25,11 @@ const checkToken = (req, res, next) => {
   } else {
     return res.json({
       success: false,
-      message: "Auth token is not supplied"
+      message: "Auth token is not supplied",
     });
   }
 };
 
 module.exports = {
-  checkToken
+  checkToken,
 };

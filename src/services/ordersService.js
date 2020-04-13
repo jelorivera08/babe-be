@@ -5,6 +5,28 @@ class OrderService {
     this.collection = getDB().collection("orders");
   }
 
+  async updateOrderNote(values) {
+    const order = await this.collection.findOneAndUpdate(
+      { user: values.user, dateOrdered: values.dateOrdered },
+      {
+        $set: {
+          notes: values.note,
+        },
+      },
+      {
+        returnOriginal: false,
+      }
+    );
+
+    if (order.ok === 1) {
+      return {
+        notes: values.note,
+      };
+    } else {
+      return Error("Unable to update note");
+    }
+  }
+
   async getYourOrders(values) {
     const yourOrders = await this.collection
       .find({ user: values.username })

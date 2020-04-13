@@ -5,12 +5,14 @@ type Mutation {
   updateOrder(user: String!, dateOrdered: String!, product: productInputType!, productIndex: Int!): productType
   createOrder(user: String!, products: [productInputType]!, dateOrdered: String!): [orderType]
   createProduct(name: String!, amount: Int!): [productType]
+  updateOrderNote(dateOrdered: String!, note: String!, user: String!): orderType
 }
 
 type orderType {
   user: String
   products: [productType]
   dateOrdered: String
+  notes: String
 }
 
 input productInputType {

@@ -1,11 +1,14 @@
 const {
-  GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList, GraphQLInt,
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLList,
+  GraphQLInt,
   GraphQLInputObjectType,
-} = require('graphql');
-
+} = require("graphql");
 
 const userRegistrationType = new GraphQLObjectType({
-  name: 'UserRegistrationType',
+  name: "UserRegistrationType",
   fields: {
     id: { type: GraphQLID },
     username: { type: GraphQLString },
@@ -19,7 +22,7 @@ const userRegistrationType = new GraphQLObjectType({
 });
 
 const productType = new GraphQLObjectType({
-  name: 'productType',
+  name: "productType",
   fields: {
     name: { type: GraphQLString },
     amount: { type: GraphQLInt },
@@ -28,7 +31,7 @@ const productType = new GraphQLObjectType({
 });
 
 const productInputType = new GraphQLInputObjectType({
-  name: 'productInputType',
+  name: "productInputType",
   fields: {
     name: { type: GraphQLString },
     amount: { type: GraphQLInt },
@@ -37,16 +40,17 @@ const productInputType = new GraphQLInputObjectType({
 });
 
 const orderType = new GraphQLObjectType({
-  name: 'orderType',
+  name: "orderType",
   fields: {
     user: { type: GraphQLString },
     products: { type: GraphQLList(productType) },
     dateOrdered: { type: GraphQLString },
+    notes: { type: GraphQLString },
   },
 });
 
 const userType = new GraphQLObjectType({
-  name: 'userType',
+  name: "userType",
   fields: {
     id: { type: GraphQLID },
     username: { type: GraphQLString },
@@ -61,7 +65,6 @@ const userType = new GraphQLObjectType({
     description: { type: GraphQLString },
   },
 });
-
 
 module.exports = {
   userRegistrationType,
