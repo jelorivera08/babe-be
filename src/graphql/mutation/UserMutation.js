@@ -1,11 +1,7 @@
 /* eslint-disable no-unused-vars */
-const {
-  GraphQLString,
-  GraphQLNonNull,
-} = require('graphql');
-const { userRegistrationType, userType } = require('../nodeTypes');
-const UsersService = require('../../services/usersService');
-
+const { GraphQLString, GraphQLNonNull } = require("graphql");
+const { userRegistrationType, userType } = require("../nodeTypes");
+const UsersService = require("../../services/usersService");
 
 const UserCreate = {
   type: userRegistrationType,
@@ -18,6 +14,7 @@ const UserCreate = {
     facebookURL: { type: new GraphQLNonNull(GraphQLString) },
     instagramURL: { type: new GraphQLNonNull(GraphQLString) },
     description: { type: new GraphQLNonNull(GraphQLString) },
+    region: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_, values) => {
     const usersService = new UsersService();
@@ -27,11 +24,9 @@ const UserCreate = {
       return new Error(res.error);
     }
 
-
     return res.ops[0];
   },
 };
-
 
 const ChangeUserStatus = {
   type: userType,
@@ -42,7 +37,6 @@ const ChangeUserStatus = {
   resolve: async (_, values) => {
     const usersService = new UsersService();
     const res = await usersService.changeUserStatus(values);
-
 
     if (res.error) {
       return new Error(res.error);
