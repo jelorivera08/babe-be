@@ -26,6 +26,9 @@ const productType = new GraphQLObjectType({
   fields: {
     name: { type: GraphQLString },
     amount: { type: GraphQLInt },
+    regionalAmount: { type: GraphQLInt },
+    provincialAmount: { type: GraphQLInt },
+    resellerAmount: { type: GraphQLInt },
     quantity: { type: GraphQLInt },
   },
 });
