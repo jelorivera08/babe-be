@@ -15,11 +15,22 @@ class UsersService {
   }
 
   async getStockists(values) {
-    const regionalStockists = await this.collection
-      .find({
-        accountType: values.accountType,
-      })
-      .toArray();
+    let regionalStockists = {};
+
+    if (values.region === null) {
+      regionalStockists = await this.collection
+        .find({
+          accountType: values.accountType,
+        })
+        .toArray();
+    } else {
+      regionalStockists = await this.collection
+        .find({
+          accountType: values.accountType,
+          region: values.region,
+        })
+        .toArray();
+    }
 
     const orderService = new OrderService();
     const orders = await orderService.getOrders();
@@ -47,7 +58,22 @@ class UsersService {
       }
     });
 
-    return stockistWithOrders;
+    const completeStockistWithOrders = regionalStockists.map((stockist) => {
+      const order = stockistWithOrders.find(
+        (v) => v.username === stockist.username
+      );
+
+      if (!order) {
+        return {
+          ...stockist,
+          orders: [],
+        };
+      } else {
+        return order;
+      }
+    });
+
+    return completeStockistWithOrders;
   }
 
   async changeUserStatus({ username, status }) {
@@ -71,7 +97,7 @@ class UsersService {
 
     if (res !== null) {
       return jwt.sign(
-        { username, accountType: res.accountType },
+        { username, accountType: res.accountType, region: res.region },
         config.secret,
         { expiresIn: "24h" }
       );

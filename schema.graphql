@@ -30,7 +30,7 @@ type productType {
 type Query {
   authenticateUser(username: String, password: String): String
   users: [userType]
-  stockists(accountType: String, username: String): [userType]
+  stockists(accountType: String!, region: String): [userType]
   products: [productType]
   activeResellers: [userType]
   yourOrders(username: String): [orderType]

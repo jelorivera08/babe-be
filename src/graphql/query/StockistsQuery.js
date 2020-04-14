@@ -1,13 +1,13 @@
 /* eslint-disable no-underscore-dangle */
-const { GraphQLList, GraphQLString } = require("graphql");
+const { GraphQLList, GraphQLString, GraphQLNonNull } = require("graphql");
 const { userType } = require("../nodeTypes");
 const UsersService = require("../../services/usersService");
 
 const StockistsQuery = {
   type: GraphQLList(userType),
   args: {
-    accountType: { type: GraphQLString },
-    username: { type: GraphQLString },
+    accountType: { type: new GraphQLNonNull(GraphQLString) },
+    region: { type: GraphQLString },
   },
   resolve: async (_, values) => {
     const userService = new UsersService();
@@ -17,7 +17,7 @@ const StockistsQuery = {
       return res;
     }
 
-    return new Error("Error getting orders.");
+    return new Error("Error getting stockists.");
   },
 };
 
