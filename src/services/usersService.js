@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const { getDB } = require("../config/databaseConnection");
 const OrderService = require("./ordersService");
 const config = require("../config");
+const PhotoService = require("../services/photoService");
 
 class UsersService {
   constructor() {
@@ -9,9 +10,26 @@ class UsersService {
   }
 
   async activeResellers() {
-    return this.collection
+    const resellers = await this.collection
       .find({ status: "ACTIVE", accountType: "Reseller" })
       .toArray();
+
+    const photoService = new PhotoService();
+
+    const images = await photoService.getAll();
+
+    const resellersWithImages = resellers.map((reseller) => {
+      const imageExists = images.find(
+        (image) => image.username === reseller.username
+      );
+
+      return {
+        ...reseller,
+        imageURL: imageExists ? imageExists.imageURL : null,
+      };
+    });
+
+    return resellersWithImages;
   }
 
   async getStockists(values) {

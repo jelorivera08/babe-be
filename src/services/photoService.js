@@ -5,6 +5,10 @@ class PhotoService {
     this.collection = getDB().collection("photos");
   }
 
+  async getAll() {
+    return await this.collection.find({}).toArray();
+  }
+
   async insert(values) {
     const photo = await this.collection.insertOne({
       imageURL: values.imageURL,
