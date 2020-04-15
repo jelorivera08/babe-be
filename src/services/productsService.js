@@ -42,8 +42,6 @@ class OrderService {
       amount: adjustAmount(accountType, product),
     }));
 
-    console.log(adjustedProducts);
-
     return adjustedProducts;
   }
 }
