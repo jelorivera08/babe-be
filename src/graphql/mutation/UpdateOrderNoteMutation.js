@@ -11,10 +11,6 @@ const UpdateOrderNoteMutation = {
     user: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_, values, { decoded }) => {
-    if (decoded.username !== "admin") {
-      return Error("You are not authorized to do update this parameter.");
-    }
-
     const ordersService = new OrdersService();
     const res = await ordersService.updateOrderNote({
       ...values,
