@@ -36,6 +36,6 @@ app.use(
   })
 );
 
-app.listen(4000);
+app.listen(8080);
 console.log("SERVER OK");
 printSchemaFromBuild(schema);
