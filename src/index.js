@@ -5,25 +5,40 @@ const schema = require("./graphql/schema");
 const printSchemaFromBuild = require("./config/printSchema");
 const middleware = require("./middleware");
 const { setupDB } = require("./config/databaseConnection");
-const { upload } = require("./config/photoSaving");
-const PhotoService = require("./services/photoService");
 const app = express();
+const multer = require("multer");
+const uploadImage = require("./helpers/cloudStorage");
+const PhotoService = require("./services/photoService");
+
+const multerMid = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+});
 
 setupDB((v) => console.log(v));
+app.use(multerMid.single("file"));
 app.use("/public", express.static("public"));
 app.use(cors());
 
-app.post("/upload", upload.single("image"), async (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
-  const imageURL = url + "/public/" + req.file.filename;
+app.post("/upload", async (req, res, next) => {
+  try {
+    const { username } = req.body;
+    const myFile = req.file;
+    const imageUrl = await uploadImage(myFile, username);
 
-  const photoService = new PhotoService();
-  const result = await photoService.insert({
-    imageURL,
-    username: req.body.username,
-  });
+    const photoService = new PhotoService();
+    const result = await photoService.insert({
+      imageUrl,
+      username: req.body.username,
+    });
 
-  return res.send(result);
+    return res.send(result);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
 
 app.use(middleware.checkToken);

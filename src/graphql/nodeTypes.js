@@ -67,7 +67,7 @@ const userType = new GraphQLObjectType({
     orders: { type: GraphQLList(orderType) },
     description: { type: GraphQLString },
     region: { type: GraphQLString },
-    imageURL: { type: GraphQLString },
+    imageUrl: { type: GraphQLString },
   },
 });
 

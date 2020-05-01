@@ -11,13 +11,13 @@ class PhotoService {
 
   async insert(values) {
     const photo = await this.collection.insertOne({
-      imageURL: values.imageURL,
+      imageUrl: values.imageUrl,
       username: values.username,
     });
 
     if (photo.result.ok === 1) {
       return {
-        imageURL: photo.ops[0].imageURL,
+        imageUrl: photo.ops[0].imageUrl,
         username: photo.ops[0].username,
       };
     }

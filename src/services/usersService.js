@@ -25,7 +25,7 @@ class UsersService {
 
       return {
         ...reseller,
-        imageURL: imageExists ? imageExists.imageURL : null,
+        imageUrl: imageExists ? imageExists.imageUrl : null,
       };
     });
 

@@ -63,5 +63,5 @@ type userType {
   orders: [orderType]
   description: String
   region: String
-  imageURL: String
+  imageUrl: String
 }
