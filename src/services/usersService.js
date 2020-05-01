@@ -138,8 +138,22 @@ class UsersService {
 
   async getUsers() {
     const exisingUsers = await this.collection.find().toArray();
+    const photoService = new PhotoService();
 
-    return exisingUsers;
+    const images = await photoService.getAll();
+
+    const usersWithImages = exisingUsers.map((user) => {
+      const imageExists = images.find(
+        (image) => image.username === user.username
+      );
+
+      return {
+        ...user,
+        imageUrl: imageExists ? imageExists.imageUrl : null,
+      };
+    });
+
+    return usersWithImages;
   }
 }
 
