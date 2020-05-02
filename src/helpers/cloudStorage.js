@@ -26,8 +26,10 @@ const uploadImage = (file, username) =>
         );
         resolve(publicUrl);
       })
-      .on("error", () => {
-        reject(`Unable to upload image, something went wrong`);
+      .on("error", (err) => {
+        reject(
+          `Unable to upload image, something went wrong: ${JSON.stringify(err)}`
+        );
       })
       .end(buffer);
   });

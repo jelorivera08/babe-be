@@ -9,6 +9,30 @@ class UsersService {
     this.collection = getDB().collection("users");
   }
 
+  async getUserInfo({ username }) {
+    const userInfo = await this.collection.findOne({ username });
+
+    return userInfo;
+  }
+
+  async updateHasStock({ username, hasStockStatus }) {
+    const reseller = await this.collection.findOneAndUpdate(
+      {
+        status: "ACTIVE",
+        accountType: "Reseller",
+        username,
+      },
+      {
+        $set: { hasStock: hasStockStatus },
+      },
+      {
+        returnOriginal: false,
+      }
+    );
+
+    return reseller;
+  }
+
   async activeResellers() {
     const resellers = await this.collection
       .find({ status: "ACTIVE", accountType: "Reseller" })

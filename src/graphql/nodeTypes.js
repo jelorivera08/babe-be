@@ -3,6 +3,7 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLList,
+  GraphQLBoolean,
   GraphQLInt,
   GraphQLInputObjectType,
 } = require("graphql");
@@ -68,6 +69,7 @@ const userType = new GraphQLObjectType({
     description: { type: GraphQLString },
     region: { type: GraphQLString },
     imageUrl: { type: GraphQLString },
+    hasStock: { type: GraphQLBoolean },
   },
 });
 

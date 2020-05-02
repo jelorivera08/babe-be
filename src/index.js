@@ -36,7 +36,6 @@ app.post("/upload", async (req, res, next) => {
 
     return res.send(result);
   } catch (error) {
-    console.log(error);
     next(error);
   }
 });

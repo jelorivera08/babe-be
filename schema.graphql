@@ -6,6 +6,7 @@ type Mutation {
   createOrder(user: String!, products: [productInputType]!, dateOrdered: String!, notes: String!): [orderType]
   createProduct(name: String!, regionalAmount: Int!, provincialAmount: Int!, resellerAmount: Int!): [productType]
   updateOrderNote(dateOrdered: String!, note: String!, user: String!): orderType
+  updateResellerStock(hasStockStatus: Boolean!): userType
 }
 
 type orderType {
@@ -37,6 +38,7 @@ type Query {
   products: [productType]
   activeResellers: [userType]
   yourOrders(username: String): [orderType]
+  userInfo: userType
 }
 
 type UserRegistrationType {
@@ -64,4 +66,5 @@ type userType {
   description: String
   region: String
   imageUrl: String
+  hasStock: Boolean
 }
