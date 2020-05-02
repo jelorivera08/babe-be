@@ -157,7 +157,11 @@ class UsersService {
       return { error: "Username already exists." };
     }
 
-    return this.collection.insertOne({ ...values, status: "PENDING" });
+    return this.collection.insertOne({
+      ...values,
+      status: "PENDING",
+      hasStock: false,
+    });
   }
 
   async getUsers() {
