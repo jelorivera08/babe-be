@@ -137,6 +137,9 @@ class UsersService {
   async signIn({ username, password }) {
     const res = await this.collection.findOne({ username, password });
 
+    if (res.status !== "ACTIVE")
+      return Error("Your account is not yet activated.");
+
     if (res !== null) {
       return jwt.sign(
         { username, accountType: res.accountType, region: res.region },
