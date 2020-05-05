@@ -13,7 +13,8 @@ const UserCreate = {
     accountType: { type: new GraphQLNonNull(GraphQLString) },
     facebookURL: { type: new GraphQLNonNull(GraphQLString) },
     instagramURL: { type: new GraphQLNonNull(GraphQLString) },
-    description: { type: new GraphQLNonNull(GraphQLString) },
+    areaOfDistribution: { type: new GraphQLNonNull(GraphQLString) },
+    address: { type: new GraphQLNonNull(GraphQLString) },
     region: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_, values) => {
