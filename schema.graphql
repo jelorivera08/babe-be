@@ -9,6 +9,7 @@ type Mutation {
   updateProduct(name: String!, regionalAmount: Int!, resellerAmount: Int!, provincialAmount: Int!): productType
   updateResellerStock(hasStockStatus: Boolean!): userType
   deleteProduct(name: String!): productType
+  deleteUser(username: String!): userType
 }
 
 type orderType {

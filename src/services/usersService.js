@@ -9,6 +9,16 @@ class UsersService {
     this.collection = getDB().collection("users");
   }
 
+  async deleteUser({ username }) {
+    const deletedUser = await this.collection.findOneAndDelete({ username });
+
+    if (deletedUser.ok === 1) {
+      return deletedUser.value;
+    } else {
+      return Error("Unable to delete user.");
+    }
+  }
+
   async getUserInfo({ username }) {
     const userInfo = await this.collection.findOne({ username });
 

@@ -20,6 +20,7 @@ const { UserInfoQuery } = require("./query/UserInfoQuery");
 
 const { UpdateProductMutation } = require("./mutation/UpdateProductMutation");
 const { DeleteProductMutation } = require("./mutation/DeleteProductMutation");
+const { DeleteUserMutation } = require("./mutation/DeleteUserMutation");
 
 const QueryType = new GraphQLObjectType({
   name: "Query",
@@ -47,6 +48,7 @@ const MutationType = new GraphQLObjectType({
     updateProduct: UpdateProductMutation,
     updateResellerStock: UpdateResellerStockMutation,
     deleteProduct: DeleteProductMutation,
+    deleteUser: DeleteUserMutation,
   }),
 });
 
