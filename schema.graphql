@@ -6,7 +6,9 @@ type Mutation {
   createOrder(user: String!, products: [productInputType]!, dateOrdered: String!, notes: String!): [orderType]
   createProduct(name: String!, regionalAmount: Int!, provincialAmount: Int!, resellerAmount: Int!): [productType]
   updateOrderNote(dateOrdered: String!, note: String!, user: String!): orderType
+  updateProduct(name: String!, regionalAmount: Int!, resellerAmount: Int!, provincialAmount: Int!): productType
   updateResellerStock(hasStockStatus: Boolean!): userType
+  deleteProduct(name: String!): productType
 }
 
 type orderType {

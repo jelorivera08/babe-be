@@ -5,6 +5,40 @@ class OrderService {
     this.collection = getDB().collection("products");
   }
 
+  async deleteProduct(values) {
+    const newProducts = await this.collection.findOneAndDelete({
+      name: values.name,
+    });
+
+    if (newProducts.ok === 1) {
+      return newProducts.value;
+    } else {
+      return Error("Unable to delete product");
+    }
+  }
+
+  async updateProduct(values) {
+    const updatedProduct = await this.collection.findOneAndUpdate(
+      { name: values.name },
+      {
+        $set: {
+          resellerAmount: values.resellerAmount,
+          regionalAmount: values.regionalAmount,
+          provincialAmount: values.provincialAmount,
+        },
+      },
+      {
+        returnOriginal: false,
+      }
+    );
+
+    if (updatedProduct.ok === 1) {
+      return updatedProduct.value;
+    } else {
+      return Error("Unable to update product");
+    }
+  }
+
   async createProduct(values) {
     const existingProduct = await this.collection.findOne({
       name: values.name,
