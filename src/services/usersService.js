@@ -9,6 +9,30 @@ class UsersService {
     this.collection = getDB().collection("users");
   }
 
+  async updateUser(values) {
+    Object.keys(values).forEach(
+      (key) => values[key] == null && delete values[key]
+    );
+
+    const updatedUser = await this.collection.findOneAndUpdate(
+      {
+        username: values.username,
+      },
+      {
+        $set: { ...values, status: "PENDING" },
+      },
+      {
+        returnOriginal: false,
+      }
+    );
+
+    if (updatedUser.ok === 1) {
+      return updatedUser.value;
+    }
+
+    return null;
+  }
+
   async deleteUser({ username }) {
     const deletedUser = await this.collection.findOneAndDelete({ username });
 
@@ -22,7 +46,15 @@ class UsersService {
   async getUserInfo({ username }) {
     const userInfo = await this.collection.findOne({ username });
 
-    return userInfo;
+    const photoService = new PhotoService();
+
+    const images = await photoService.getAll();
+
+    const userWithImage = images.find(
+      (image) => image.username === userInfo.username
+    );
+
+    return { ...userInfo, imageUrl: userWithImage.imageUrl };
   }
 
   async updateHasStock({ username, hasStockStatus }) {
