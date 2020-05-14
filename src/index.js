@@ -29,6 +29,7 @@ app.post("/upload", async (req, res, next) => {
     const imageUrl = await uploadImage(myFile, username);
 
     const photoService = new PhotoService();
+
     const result = await photoService.insert({
       imageUrl,
       username: req.body.username,

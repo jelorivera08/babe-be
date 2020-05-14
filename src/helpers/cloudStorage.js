@@ -14,8 +14,9 @@ const bucket = gc.bucket("babe-photos"); // should be your bucket name
 const uploadImage = (file, username) =>
   new Promise((resolve, reject) => {
     const { buffer } = file;
+    const date = new Date();
 
-    const blob = bucket.file(`${username}.jpg`);
+    const blob = bucket.file(`${username}${date}.jpg`);
     const blobStream = blob.createWriteStream({
       resumable: false,
     });
