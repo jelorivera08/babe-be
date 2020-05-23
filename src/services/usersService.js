@@ -9,6 +9,28 @@ class UsersService {
     this.collection = getDB().collection("users");
   }
 
+  async getRequestOrderStockists(values) {
+    let accountType = "";
+
+    if (values.accountType === "Provincial Stockist") {
+      accountType = "Regional Stockist";
+    } else if (values.accountType === "Regional Stockist") {
+      accountType = "ADMIN";
+    } else if (values.accountType === "Reseller") {
+      accountType = "Provincial Stockist";
+    }
+
+    try {
+      const stockists = await this.collection
+        .find({ accountType, region: values.region, status: "ACTIVE" })
+        .toArray();
+
+      return stockists;
+    } catch (err) {
+      return Error("Unable to get list of stockists");
+    }
+  }
+
   async updateUser(values) {
     Object.keys(values).forEach(
       (key) => values[key] == null && delete values[key]
@@ -50,9 +72,9 @@ class UsersService {
 
     const images = await photoService.getAll();
 
-    const userWithImage = images.find(
-      (image) => image.username === userInfo.username
-    );
+    console.log(images);
+    const userWithImage =
+      images.find((image) => image.username === userInfo.username) || {};
 
     return { ...userInfo, imageUrl: userWithImage.imageUrl };
   }

@@ -43,6 +43,7 @@ type Query {
   activeResellers: [userType]
   yourOrders(username: String): [orderType]
   userInfo: userType
+  requestOrderStockists: [userType]
 }
 
 type UserRegistrationType {

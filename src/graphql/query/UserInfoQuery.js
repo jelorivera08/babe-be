@@ -7,6 +7,7 @@ const UserInfoQuery = {
   type: userType,
   resolve: async (_, req, { decoded }) => {
     const userService = new UsersService();
+
     const res = await userService.getUserInfo({ username: decoded.username });
 
     if (res) {

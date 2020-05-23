@@ -23,6 +23,8 @@ const { DeleteProductMutation } = require("./mutation/DeleteProductMutation");
 const { DeleteUserMutation } = require("./mutation/DeleteUserMutation");
 const { UpdateUserMutation } = require("./mutation/UpdateUserMutation");
 
+const { RequestOrderStockists } = require("./query/RequestOrderStockists");
+
 const QueryType = new GraphQLObjectType({
   name: "Query",
   fields: () => ({
@@ -33,6 +35,7 @@ const QueryType = new GraphQLObjectType({
     activeResellers: ActiveResellersQuery,
     yourOrders: YourOrdersQuery,
     userInfo: UserInfoQuery,
+    requestOrderStockists: RequestOrderStockists,
   }),
 });
 
