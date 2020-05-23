@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 const { GraphQLString, GraphQLList, GraphQLNonNull } = require("graphql");
 const { requestOrderType, requestOrderInputType } = require("../nodeTypes");
-const OrdersService = require("../../services/ordersService");
+const RequestOrdersService = require("../../services/requestOrdersService");
 
 const AddRequestOrder = {
   type: requestOrderType,
@@ -12,8 +12,8 @@ const AddRequestOrder = {
     stockist: { type: new GraphQLNonNull(GraphQLString) },
   },
   resolve: async (_, values, { decoded }) => {
-    const usersService = new OrdersService();
-    const res = await usersService.addRequestOrder({
+    const requestOrdersService = new RequestOrdersService();
+    const res = await requestOrdersService.addRequestOrder({
       ...values,
       orderedBy: decoded.username,
       status: "PENDING",

@@ -5,6 +5,16 @@ class OrderService {
     this.collection = getDB().collection("orders");
   }
 
+  async getRequestOrders(values) {
+    const requestOrders = await this.collection
+      .find({
+        orderedBy: values.username,
+      })
+      .toArray();
+
+    return requestOrders;
+  }
+
   async addRequestOrder(values) {
     const requestOrder = await this.collection.insertOne(values);
 
