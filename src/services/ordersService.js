@@ -5,6 +5,16 @@ class OrderService {
     this.collection = getDB().collection("orders");
   }
 
+  async addRequestOrder(values) {
+    const requestOrder = await this.collection.insertOne(values);
+
+    if (requestOrder.insertedCount >= 1) {
+      return requestOrder.ops[0];
+    }
+
+    return Error("Unable to add request order.");
+  }
+
   async updateOrderNote(values) {
     const order = await this.collection.findOneAndUpdate(
       { user: values.user, dateOrdered: values.dateOrdered },
