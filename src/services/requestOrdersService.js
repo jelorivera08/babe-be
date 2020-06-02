@@ -5,6 +5,16 @@ class RequestOrdersService {
     this.collection = getDB().collection("requestOrders");
   }
 
+  async getIncomingRequestOrders({ stockist }) {
+    const incomingRequestOrders = await this.collection
+      .find({
+        stockist,
+      })
+      .toArray();
+
+    return incomingRequestOrders;
+  }
+
   async getRequestOrders(values) {
     const requestOrders = await this.collection
       .find({

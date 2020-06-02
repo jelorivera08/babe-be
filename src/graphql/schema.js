@@ -25,6 +25,7 @@ const { UpdateUserMutation } = require("./mutation/UpdateUserMutation");
 
 const { RequestOrderStockists } = require("./query/RequestOrderStockists");
 const { AddRequestOrder } = require("./mutation/AddRequestOrder");
+const { IncomingRequestOrders } = require("./query/IncomingRequestOrders");
 const { RequestOrders } = require("./query/RequestOrders");
 
 const QueryType = new GraphQLObjectType({
@@ -39,6 +40,7 @@ const QueryType = new GraphQLObjectType({
     userInfo: UserInfoQuery,
     requestOrderStockists: RequestOrderStockists,
     requestOrders: RequestOrders,
+    incomingRequestOrders: IncomingRequestOrders,
   }),
 });
 

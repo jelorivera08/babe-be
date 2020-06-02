@@ -46,6 +46,7 @@ type Query {
   userInfo: userType
   requestOrderStockists: [userType]
   requestOrders: [RequestOrderType]
+  incomingRequestOrders: [RequestOrderType]
 }
 
 input RequestOrderInputType {
