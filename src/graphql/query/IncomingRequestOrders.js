@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 const { GraphQLList, GraphQLString } = require("graphql");
 const { requestOrderType } = require("../nodeTypes");
-const RequestOrdersService = require("../../services/RequestOrdersService");
+const RequestOrdersService = require("../../services/requestOrdersService");
 
 const IncomingRequestOrders = {
   type: GraphQLList(requestOrderType),

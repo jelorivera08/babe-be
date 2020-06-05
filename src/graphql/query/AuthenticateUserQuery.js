@@ -1,9 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-const {
-  GraphQLString,
-} = require('graphql');
-const UsersService = require('../../services/usersService');
-
+const { GraphQLString } = require("graphql");
+const UsersService = require("../../services/usersService");
 
 const AuthenticateUserQuery = {
   type: GraphQLString,
@@ -18,7 +15,7 @@ const AuthenticateUserQuery = {
     if (res) {
       return res;
     }
-    return new Error('Invalid Credentials');
+    return new Error("Invalid Credentials");
   },
 };
 

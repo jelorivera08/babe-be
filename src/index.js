@@ -18,9 +18,9 @@ const multerMid = multer({
 });
 
 setupDB((v) => console.log(v));
+app.use(cors());
 app.use(multerMid.single("file"));
 app.use("/public", express.static("public"));
-app.use(cors());
 
 app.post("/upload", async (req, res, next) => {
   try {
@@ -51,6 +51,6 @@ app.use(
   })
 );
 
-app.listen(8080);
+app.listen(process.env.PORT || 8080);
 console.log("SERVER OK");
 printSchemaFromBuild(schema);
