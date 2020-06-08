@@ -16,6 +16,7 @@ class UsersService {
       accountType = "Regional Stockist";
     } else if (values.accountType === "Regional Stockist") {
       accountType = "ADMIN";
+      values.region = null;
     } else if (values.accountType === "Reseller") {
       accountType = "Provincial Stockist";
     }
@@ -72,7 +73,6 @@ class UsersService {
 
     const images = await photoService.getAll();
 
-    console.log(images);
     const userWithImage =
       images.find((image) => image.username === userInfo.username) || {};
 

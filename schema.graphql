@@ -12,6 +12,7 @@ type Mutation {
   deleteUser(username: String!): userType
   updateUser(username: String, firstName: String, facebookURL: String, instagramURL: String, surname: String, accountType: String, address: String, areaOfDistribution: String, region: String): userType
   addRequestOrder(notes: String, dateOrdered: String!, orders: [RequestOrderInputType]!, stockist: String!): RequestOrderType
+  updateRequestOrder(orderedBy: String!, dateOrdered: String!, status: String!): RequestOrderType
 }
 
 type orderType {

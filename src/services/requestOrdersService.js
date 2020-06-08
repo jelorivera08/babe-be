@@ -5,6 +5,29 @@ class RequestOrdersService {
     this.collection = getDB().collection("requestOrders");
   }
 
+  async updateRequestOrder({ orderedBy, dateOrdered, status }) {
+    const orderToBeUpdated = await this.collection.findOneAndUpdate(
+      {
+        orderedBy,
+        dateOrdered,
+      },
+      {
+        $set: {
+          status,
+        },
+      },
+      {
+        returnOriginal: false,
+      }
+    );
+
+    if (orderToBeUpdated.ok === 1) {
+      return orderToBeUpdated.value;
+    }
+
+    return Error("Unable to udpate request order.");
+  }
+
   async getIncomingRequestOrders({ stockist }) {
     const incomingRequestOrders = await this.collection
       .find({
