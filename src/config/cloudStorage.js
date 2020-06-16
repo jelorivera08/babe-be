@@ -3,7 +3,7 @@ const path = require("path");
 
 const { Storage } = Cloud;
 const storage = new Storage({
-  keyFilename: path.join(__dirname, "../../babe-be-33840d993b34.json"),
+  keyFilename: path.join(__dirname, "../../babe-be-46e8a1ce92ea.json"),
   projectId: "babe-be",
 });
 

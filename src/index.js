@@ -9,6 +9,7 @@ const app = express();
 const multer = require("multer");
 const uploadImage = require("./helpers/cloudStorage");
 const PhotoService = require("./services/photoService");
+const bodyParser = require("body-parser-graphql");
 
 const multerMid = multer({
   storage: multer.memoryStorage(),
@@ -19,8 +20,11 @@ const multerMid = multer({
 
 setupDB((v) => console.log(v));
 app.use(cors());
+
 app.use(multerMid.single("file"));
 app.use("/public", express.static("public"));
+
+app.use(bodyParser.graphql());
 
 app.post("/upload", async (req, res, next) => {
   try {
@@ -32,12 +36,13 @@ app.post("/upload", async (req, res, next) => {
 
     const result = await photoService.insert({
       imageUrl,
-      username: req.body.username,
+      username,
     });
 
     return res.send(result);
   } catch (error) {
-    next(error);
+    console.log(error);
+    res.send(Error("Unable to upload photo."));
   }
 });
 
