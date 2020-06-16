@@ -19,6 +19,8 @@ class UsersService {
       values.region = null;
     } else if (values.accountType === "Reseller") {
       accountType = "Provincial Stockist";
+    } else if (values.accountType === "Sub-reseller") {
+      accountType = "Reseller";
     }
 
     try {
@@ -83,7 +85,6 @@ class UsersService {
     const reseller = await this.collection.findOneAndUpdate(
       {
         status: "ACTIVE",
-        accountType: "Reseller",
         username,
       },
       {
@@ -99,7 +100,11 @@ class UsersService {
 
   async activeResellers() {
     const resellers = await this.collection
-      .find({ status: "ACTIVE", accountType: "Reseller" })
+      .find({
+        status: "ACTIVE",
+        $or: [{ accountType: "Reseller" }, { accountType: "Sub-reseller" }],
+      })
+
       .toArray();
 
     const photoService = new PhotoService();
